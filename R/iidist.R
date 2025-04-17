@@ -5,9 +5,10 @@ iidist <- function(dataset, nest_by = NULL, idcol = NULL, ...){
   if (is.null(idcol) || length(idcol) == 0) {
     stop("Please specify the column that contains the names/IDs of the individuals")
   }
-  if (st_is_sf(dataset) == FALSE) {
+  if (class(dataset) != "sf") {
     stop("Please convert your dataframe into an sf object using the function st_as_sf(dataframe, coords = c(X, Y), crs = #) from the sf package")
   }
+  idcol_q <- rlang::enquo(idcol)
   dataset %>%
     ungroup() %>%
     nest(data = -dplyr::all_of(nest_by)) %>%
@@ -19,7 +20,7 @@ iidist <- function(dataset, nest_by = NULL, idcol = NULL, ...){
         }
         tryCatch({
           dist_matrix <- st_distance(df)
-          ids <- df${{idcol}}
+          ids <- pull(df, !!idcol_q)
           combs <- expand.grid(ID1 = ids, ID2 = ids) %>% filter(ID1 != ID2)
 
           idx1 <- match(combs$ID1, ids)
