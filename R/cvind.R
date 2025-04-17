@@ -1,7 +1,7 @@
 cvind <- function(points, log10 = FALSE) {
   dist_matrix <- as.matrix(dist(points))
   individual_distances <- vector("list", nrow(points))
-  names(individual_distances) <- rownames(points)
+    names(individual_distances) <- rownames(points)
   for (i in 2:nrow(dist_matrix)) {
     for (j in 1:(i-1)) {
       individual_distances[[i]] <- c(individual_distances[[i]], dist_matrix[i, j])
