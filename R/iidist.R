@@ -1,3 +1,9 @@
+#' @import dplyr
+#' @import sf
+#' @importFrom magrittr %>%
+#' @import tidyr
+#' @import purrr
+
 iidist <- function(dataset, nest_by = NULL, idcol = NULL, ...){
   if (is.null(nest_by) || length(nest_by) == 0) {
     stop("Please specify one or more columns to nest by, e.g., iidist(dataset, nest_by = c('year', 'season'))")
@@ -5,13 +11,13 @@ iidist <- function(dataset, nest_by = NULL, idcol = NULL, ...){
   if (is.null(idcol) || length(idcol) == 0) {
     stop("Please specify the column that contains the names/IDs of the individuals")
   }
-  if (class(dataset) != "sf") {
+  if (inherits(dataset, "sf") == "FALSE") {
     stop("Please convert your dataframe into an sf object using the function st_as_sf(dataframe, coords = c(X, Y), crs = #) from the sf package")
   }
   idcol_q <- rlang::enquo(idcol)
   dataset %>%
     ungroup() %>%
-    nest(data = -dplyr::all_of(nest_by)) %>%
+    nest(data = -all_of(nest_by)) %>%
     mutate(
       pairdist = map(data, ~{
         df <- .x
