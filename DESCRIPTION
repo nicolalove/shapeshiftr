@@ -1,11 +1,23 @@
 Package: shapeshiftr
-Title: What the Package Does (One Line, Title Case)
+Title: Detecting Population Range Reconfiguration via Inter-individual Distances
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Nicola", "Love", , "nicolalove@zoology.ubc.ca", role = c("aut", "cre"))
+Description: A collection of tools to analyze shifts in the spatial cohesion of a group or population using inter-individual distances. Functions cvpop, cvind, and cvratio only require an input of a vector, matrix or dataframe of cartesian coordinates (x and y in separate columns). The function iidist requires a sf dataframe, the output of which can be used in cvmetrics_sf.  
+License: MIT + file LICENSE
+Imports:
+    cli,
+    dplyr,
+    glue,
+    lifecycle,
+    magrittr,
+    purrr,
+    rlang,
+    sf,
+    stats,
+    tidyr,
+    utils,
+    withr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

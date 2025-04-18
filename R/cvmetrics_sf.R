@@ -1,8 +1,28 @@
+#' Calculate Coefficient of Variation (CV) for Inter-individual Distances
+#'
+#' This function calculates the coefficient of variation for inter-individual
+#' distances at the population- and individual-level CV, and the ratio between the two, within a data frame, optionally applying log10 transformation.
+#'
+#' @param iid_dataset A data frame containing a column of inter-individual
+#'   distances for a given time unit.
+#' @param iidist_col The name of the column containing the inter-individual
+#'   distances.
+#' @param id_col The name of the column containing the IDs of the individuals. If you used iidist() to create these values, then just choose one of the identification columns (either ID1 or ID2).
+#' @param log10 A logical value indicating whether to apply a log10 transformation
+#'   to the CV values.
+#' @param ... The variables to group by when calculating the CVs for each metric (within the same hour, day, patch, season, etc).
+#'
+#' @return A data frame with calculated CV values for the population, the individual and
+#'   and the ratio between them for each grouping variable specified (hour, day, season, etc).
+#' @export
+#'
 #' @import dplyr
 #' @import sf
+#' @import rlang
 #' @importFrom magrittr %>%
 #' @import tidyr
-#' @import purrr
+#' @importFrom purrr map
+
 
 cvmetrics <- function(iid_dataset,  iidist_col, id_col,...,log10 = FALSE){
   grp_syms <- rlang::enquos(...)

@@ -1,3 +1,11 @@
+#' Calculate Coefficient of Variation (CV) of Inter-individual Distances at the Individual-level
+#'
+#' This function calculates the CV of average inter-individual distance amoung individuals, optionally applying a log10 transformation. We assume all individuals are sampled approximately within the same time point. If the input is a data frame of multiple sampling sessions, we suggest using this function in a pipe where the data frame is grouped, e.g., data %>% group_by(day, year) %>% summarise(cvind = cvind(c(x,y))).
+#'
+#' @param points A data frame, matrix, or vector of locations, where each row is a sampled individual.
+#' @param log10 An optional argument for the log transformation of the CV of inter-individual distances.
+#' @return A single numeric value for calculated coefficient of variation of the average inter-individual distance amoung individuals. If this is used is a tidyverse pipe, the output will be a column of numbers.
+#' @export
 cvind <- function(points, log10 = FALSE) {
   dist_matrix <- as.matrix(dist(points))
   individual_distances <- vector("list", nrow(points))

@@ -1,10 +1,22 @@
+#' Calculate the Inter-individual Distance Between Every Pair of Individuals
+#'
+#' This function calculates the inter-individual distance between every pair of individuals within a sampling unit in an sf data frame.
+#'
+#' @param dataset An sf data frame containing a geometry column
+#' @param nest_by The time unit, patch, or other covariate to the calculate the distance over - this should be the smallest time unit possible so there aren't multiple instances of the same individual in the period. For example, for a daily sampling frequency where the user is interested in comparing seasons, these columns would be yday and season. To compare within each patch (of different populations), then this could be yday, season, patch.
+#' @param idcol The name of the column containing the IDs of the individuals.
+#' @return A data frame containing a column of inter-individual distances over the specified time periods.
+#' @export
+#'
 #' @import dplyr
 #' @import sf
+#' @import rlang
 #' @importFrom magrittr %>%
 #' @import tidyr
-#' @import purrr
+#' @importFrom purrr map
 
-iidist <- function(dataset, nest_by = NULL, idcol = NULL, ...){
+
+iidist <- function(dataset, nest_by = NULL, idcol = NULL){
   if (is.null(nest_by) || length(nest_by) == 0) {
     stop("Please specify one or more columns to nest by, e.g., iidist(dataset, nest_by = c('year', 'season'))")
   }
