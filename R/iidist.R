@@ -3,8 +3,8 @@
 #' This function calculates the inter-individual distance between every pair of individuals within a sampling unit in an sf data frame.
 #'
 #' @param dataset An sf data frame containing a geometry column
-#' @param nest_by The time unit, patch, or other covariate to the calculate the distance over - this should be the smallest time unit possible so there aren't multiple instances of the same individual in the period. For example, for a daily sampling frequency where the user is interested in comparing seasons, these columns would be yday and season. To compare within each patch (of different populations), then this could be yday, season, patch.
-#' @param idcol The name of the column containing the IDs of the individuals.
+#' @param nest_by A string of column names for the time unit, patch, or other covariate to the calculate the distance over - this should be the smallest time unit possible so there aren't multiple instances of the same individual in the period. For example, for a daily sampling frequency where the user is interested in comparing seasons, these columns would be "yday" and "season." To compare within each patch (of different populations), then this could be yday, season, patch.
+#' @param idcol The name of the column containing the IDs of the individuals in quotations, e.g., "animalID".
 #' @return A data frame containing a column of inter-individual distances over the specified time periods.
 #' @export
 #'
@@ -16,7 +16,7 @@
 #' @importFrom purrr map
 
 
-iidist <- function(dataset, nest_by = NULL, idcol = NULL){
+iidist <- function(dataset, nest_by, idcol){
   if (is.null(nest_by) || length(nest_by) == 0) {
     stop("Please specify one or more columns to nest by, e.g., iidist(dataset, nest_by = c('year', 'season'))")
   }
@@ -31,7 +31,7 @@ iidist <- function(dataset, nest_by = NULL, idcol = NULL){
     ungroup() %>%
     nest(data = -all_of(nest_by)) %>%
     mutate(
-      pairdist = map(data, ~{
+      pairdist = purrr::map(data, ~{
         df <- .x
         if (nrow(df) < 2) {
           return(tibble(ID1 = NA, ID2 = NA, iidist = NA))

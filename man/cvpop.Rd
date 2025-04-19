@@ -7,7 +7,13 @@
 cvpop(points, log10 = FALSE)
 }
 \arguments{
-\item{points}{A data frame, matrix, or vector of locations, where each row is a sampled individual.}
+\item{points}{A data frame, matrix, or two vectors of locations, where each row is a sampled individual.
+Syntax examples for different input types:
+\itemize{
+\item If \code{points} is a data frame: specify the columns, e.g., \code{cvpop(df[, c("x", "y")])}
+\item If \code{points} is a matrix: input directly, e.g., \code{cvpop(m)}
+\item If \code{points} are two vectors: bind them, e.g., \code{cvpop(cbind(x, y))}
+}}
 
 \item{log10}{An optional argument for the log transformation of the CV of inter-individual distances.}
 }
@@ -15,5 +21,5 @@ cvpop(points, log10 = FALSE)
 A single numeric value for calculated coefficient of variation of the inter-individual distances between every pair of individuals. If this is used is a tidyverse pipe, the output will be a column of numbers.
 }
 \description{
-This function calculates the CV of the inter-individual distance between every pair of individuals, optionally applying a log10 transformation. We assume all individuals are sampled approximately within the same time point. If the input is a data frame of multiple sampling sessions, we suggest using this function in a pipe where the data frame is grouped, e.g., data \%>\% group_by(day, year) \%>\% summarise(cvpop = cvpop(c(x,y)))
+This function calculates the CV of the inter-individual distance between every pair of individuals, optionally applying a log10 transformation. We assume all individuals are sampled approximately within the same time point. If the input is a data frame with multiple sampling sessions, we suggest using this function in a pipe where the data frame is grouped, e.g., data \%>\% group_by(day, year) \%>\% summarise(cvpop = cvpop(across(c(x,y)))). \strong{Note the use of across()!}
 }

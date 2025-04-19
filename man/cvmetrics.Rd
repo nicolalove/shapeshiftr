@@ -4,25 +4,24 @@
 \alias{cvmetrics}
 \title{Calculate Coefficient of Variation (CV) for Inter-individual Distances}
 \usage{
-cvmetrics(iid_dataset, iidist_col, id_col, ..., log10 = FALSE)
+cvmetrics(iid_dataset, iidist_col, id_col, grp_by, log10 = FALSE)
 }
 \arguments{
 \item{iid_dataset}{A data frame containing a column of inter-individual
-distances for a given time unit.}
+distances for a sampling unit.}
 
 \item{iidist_col}{The name of the column containing the inter-individual
-distances.}
+distances in quotations, e.g., "iidist". This can be of class "numeric" or "units".}
 
-\item{id_col}{The name of the column containing the IDs of the individuals. If you used iidist() to create these values, then just choose one of the identification columns (either ID1 or ID2).}
+\item{id_col}{The name of the column containing the IDs of the individuals in quotations, e.g., "animalID". If you used iidist() to create these values, then just choose one of the identification columns (either "ID1" or "ID2").}
 
-\item{...}{The variables to group by when calculating the CVs for each metric (within the same hour, day, patch, season, etc).}
+\item{grp_by}{The variables to group by when calculating the CVs for each metric in quotations, e.g., c("yday", "year", "site").}
 
 \item{log10}{A logical value indicating whether to apply a log10 transformation
 to the CV values.}
 }
 \value{
-A data frame with calculated CV values for the population, the individual and
-and the ratio between them for each grouping variable specified (hour, day, season, etc).
+A data frame with calculated CV values for the population, the individual and the ratio between them for each grouping variable specified (hour, day, season, etc).
 }
 \description{
 This function calculates the coefficient of variation for inter-individual

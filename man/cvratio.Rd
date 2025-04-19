@@ -7,10 +7,16 @@
 cvratio(points, log10 = FALSE)
 }
 \arguments{
-\item{points}{A data frame, matrix, or vector of locations, where each row is a sampled individual.}
+\item{points}{A data frame, matrix, or two vectors of locations, where each row is a sampled individual.
+Syntax examples for different input types:
+\itemize{
+\item If \code{points} is a data frame: specify the columns, e.g., \code{cvratio(df[, c("x", "y")])}
+\item If \code{points} is a matrix: input directly, e.g., \code{cvratio(m)}
+\item If \code{points} are two vectors: bind them, e.g., \code{cvratio(cbind(x, y))}
+}}
 
 \item{log10}{An optional argument for the log transformation of the ratio of CVs.}
 }
 \description{
-This function calculates the ratio of individual-level CVs to population-level CVs of inter-individual distances, optionally applying a log10 transformation. We assume all individuals are sampled approximately within the same time point. If the input is a data frame of multiple sampling sessions, we suggest using this function in a pipe where the data frame is grouped, e.g., data \%>\% group_by(day, year) \%>\% summarise(cvratio = cvratio(c(x,y)))
+This function calculates the ratio of individual-level CVs to population-level CVs of inter-individual distances, optionally applying a log10 transformation. We assume all individuals are sampled approximately within the same time point. If the input is a data frame with multiple sampling sessions, we suggest using this function in a pipe where the data frame is grouped, e.g., data \%>\% group_by(day, year) \%>\% summarise(cvratio = cvratio(across(c(x,y)))). \strong{Note the use of across()!}
 }
