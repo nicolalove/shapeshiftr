@@ -5,9 +5,9 @@
 #'
 #' @param iid_dataset A data frame containing a column of inter-individual
 #'   distances for a sampling unit.
-#' @param iidist_col The name of the column containing the inter-individual
+#' @param distcol The name of the column containing the inter-individual
 #'   distances in quotations, e.g., "iidist". This can be of class "numeric" or "units".
-#' @param id_col The name of the column containing the IDs of the individuals in quotations, e.g., "animalID". If you used iidist() to create these values, then just choose one of the identification columns (either "ID1" or "ID2").
+#' @param idcol The name of the column containing the IDs of the individuals in quotations, e.g., "animalID". If you used iidist() to create these values, then just choose one of the identification columns (either "ID1" or "ID2").
 #' @param log10 A logical value indicating whether to apply a log10 transformation
 #'   to the CV values.
 #' @param grp_by The variables to group by when calculating the CVs for each metric in quotations, e.g., c("yday", "year", "site").
@@ -23,10 +23,10 @@
 #' @importFrom purrr map
 
 
-cvmetrics <- function(iid_dataset,  iidist_col, id_col, grp_by, log10 = FALSE){
+cvmetrics_sf <- function(iid_dataset,  distcol, idcol, grp_by, log10 = FALSE){
   # Convert string column names to symbols
-  iidist_sym <- rlang::sym(iidist_col)
-  id_sym     <- rlang::sym(id_col)
+  iidist_sym <- rlang::sym(distcol)
+  id_sym     <- rlang::sym(idcol)
   grp_syms <- rlang::syms(grp_by)
   if (length(grp_syms) == 0) {
     stop("Please specify one or more grouping columns (in quotes), e.g. cvmetrics(df, ...,`yday`, `hour`)")
