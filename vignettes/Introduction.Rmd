@@ -194,7 +194,7 @@ population fragmentation. Let's visualize the data to check:
 ggplot(asym_split_sf) +
   geom_sf(aes(color = as.factor(year))) +
   labs(color = "year")+
-  coord_sf(xlim = c(29.15, 29.45))+
+  coord_sf(xlim = c(29.15, 29.45),crs = st_crs(4326))+
   scale_x_continuous(breaks = scales::pretty_breaks(n = 3)) +
   theme_bw()
 ```
