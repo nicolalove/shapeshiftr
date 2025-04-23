@@ -1,4 +1,4 @@
-# shapeshiftr
+# shapeshiftr <a href="https://nicolalove.github.io/shapeshiftr/"><img src="man/figures/logo.png" align="right" height="139" alt="shapeshiftr website" /></a>
 
 ## Overview
 
