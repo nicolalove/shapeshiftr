@@ -26,4 +26,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Nicola Love \email{nicolalove@zoology.ubc.ca}
 
+Authors:
+\itemize{
+  \item Sally Otto
+}
+
 }
