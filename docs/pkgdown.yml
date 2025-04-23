@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   Introduction: Introduction.html
-last_built: 2025-04-23T07:44Z
+last_built: 2025-04-23T08:19Z
 urls:
   reference: https://nicolalove.github.io/shapeshiftr/reference
   article: https://nicolalove.github.io/shapeshiftr/articles

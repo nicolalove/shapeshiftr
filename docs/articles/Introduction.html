@@ -5,12 +5,18 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title> • shapeshiftr</title>
+<title>Introduction to shapeshiftr • shapeshiftr</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to shapeshiftr">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -33,7 +39,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/Introduction.html">UNKNOWN TITLE</a></li>
+<li><a class="dropdown-item" href="../articles/Introduction.html">Introduction to shapeshiftr</a></li>
   </ul>
 </li>
       </ul>
@@ -53,8 +59,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1></h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Introduction to shapeshiftr</h1>
             
       
 
@@ -63,18 +68,14 @@
 
     
     
-<h1 style="display: flex; align-items: center; gap: 10px;margin-top: 0;">
-</h1>
-<p><img src="../reference/figures/shapeshiftr_draft1.png" height="150" style="vertical-align: middle;"><span style="line-height: 1;">Introduction to shapeshiftr</span></p>
-
 <style>
     img {
         border: 0;
     }
 </style>
-<div class="section level3">
-<h3 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
-</h3>
+<div class="section level2">
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
 <p>This package was motivated by working with an animal telemetry
 dataset that spanned decades. We wanted to measure the link between
 spatial distribution and cohesion in group, but were limited to only
@@ -106,14 +107,14 @@ measures, and their ratio, in distinct ways:</p>
 &amp; Otto (2025). <em>Spatial Signatures of Population Cohesion</em>.
 Methods in Ecology and Evolution. <a href="https://doi.org/" class="external-link uri">https://doi.org/</a></p>
 </div>
-<div class="section level3">
-<h3 id="cv-functions">CV functions<a class="anchor" aria-label="anchor" href="#cv-functions"></a>
-</h3>
+<div class="section level2">
+<h2 id="cv-functions">CV functions<a class="anchor" aria-label="anchor" href="#cv-functions"></a>
+</h2>
 <p>This package has two streams of functions depending on the type of
 input.</p>
-<div class="section level4">
-<h4 id="stream-1-non-sf-data">Stream 1: non-sf data<a class="anchor" aria-label="anchor" href="#stream-1-non-sf-data"></a>
-</h4>
+<div class="section level3">
+<h3 id="stream-1-non-sf-data">Stream 1: non-sf data<a class="anchor" aria-label="anchor" href="#stream-1-non-sf-data"></a>
+</h3>
 <p>If you have Cartesian coordinates in separate columns or vectors
 whose distances are not substantially far enough apart to account for
 the curvature of the earth, use <code><a href="../reference/cvpop.html">cvpop()</a></code>,
@@ -176,9 +177,9 @@ of population fragmentation. Let’s visualize the data to check:</p>
 <p>We can see that the population has split from into two subpopulations
 from year 1 to year 2.</p>
 </div>
-<div class="section level4">
-<h4 id="stream-2-sf-data">Stream 2: <code>sf</code> data<a class="anchor" aria-label="anchor" href="#stream-2-sf-data"></a>
-</h4>
+<div class="section level3">
+<h3 id="stream-2-sf-data">Stream 2: <code>sf</code> data<a class="anchor" aria-label="anchor" href="#stream-2-sf-data"></a>
+</h3>
 <p>If you have a dataframe where the coordinates are stored within a
 geometry column (an <code>sf</code> dataframe), use
 <code><a href="../reference/iidist.html">iidist()</a></code> and <code><a href="../reference/cvmetrics_sf.html">cvmetrics_sf()</a></code>.</p>

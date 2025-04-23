@@ -17,6 +17,7 @@ library(dplyr)
 library(magrittr)
 library(ggplot2)
 library(scales)
+library(sf)
 # <h1 style="display: flex; align-items: center; gap: 10px;margin-top: 0;">
 # 
 # <img src="../man/figures/shapeshiftr_draft1.png" height="150" style="vertical-align: middle;" />
