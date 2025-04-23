@@ -16,6 +16,13 @@ For the full description of the method and its application, see:
 Love & Otto (2025). \emph{Spatial Signatures of Population Cohesion}. Methods in Ecology and Evolution. https://doi.org/##
 }
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://nicolalove.github.io/shapeshiftr/}
+}
+
+}
 \author{
 \strong{Maintainer}: Nicola Love \email{nicolalove@zoology.ubc.ca}
 
