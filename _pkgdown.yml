@@ -2,7 +2,5 @@ url: https://nicolalove.github.io/shapeshiftr/
 template:
   bootstrap: 5
   bootswatch: minty
-  assets:
-     - man/figures
-
+  assets: man/figures
 
