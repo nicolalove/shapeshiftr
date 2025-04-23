@@ -1,0 +1,9 @@
+pandoc: '3.2'
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  Introduction: Introduction.html
+last_built: 2025-04-23T02:24Z
+urls:
+  reference: https://nicolalove.github.io/shapeshiftr/reference
+  article: https://nicolalove.github.io/shapeshiftr/articles
