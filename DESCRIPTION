@@ -7,11 +7,14 @@ Description: A collection of tools to analyze shifts in the spatial cohesion of 
 License: MIT + file LICENSE
 Imports:
     dplyr,
+    ggplot2,
     glue,
+    knitr,
     lifecycle,
     magrittr,
     purrr,
     rlang,
+    scales,
     sf,
     tidyr
 Encoding: UTF-8
