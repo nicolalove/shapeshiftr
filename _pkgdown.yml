@@ -3,4 +3,5 @@ template:
   bootstrap: 5
   bootswatch: minty
   assets: man/figures
+  logo: man/figures/shapeshiftr_draft1.png
 

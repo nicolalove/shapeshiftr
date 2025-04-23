@@ -1,18 +1,12 @@
 ---
 output: 
+  title: "Introduction to shapeshiftr"
   rmarkdown::html_vignette:
 vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-<h1 style="display: flex; align-items: center; gap: 10px;margin-top: 0;">
-
-<img src="../man/figures/shapeshiftr_draft1.png" height="150" style="vertical-align: middle;" />
-<span style="line-height: 1;">Introduction to shapeshiftr</span>
-
-</h1>
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -23,6 +17,13 @@ library(dplyr)
 library(magrittr)
 library(ggplot2)
 library(scales)
+# <h1 style="display: flex; align-items: center; gap: 10px;margin-top: 0;">
+# 
+# <img src="../man/figures/shapeshiftr_draft1.png" height="150" style="vertical-align: middle;" />
+# <span style="line-height: 1;">Introduction to shapeshiftr</span>
+# 
+# </h1> 
+# this worked for knitting but not with pkgdown
 ```
 
 <style>
