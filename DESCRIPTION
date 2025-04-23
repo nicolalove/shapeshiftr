@@ -25,5 +25,5 @@ Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
 LazyData: true
-VignetteBuilder: knitr , ggplot2 , scales
+VignetteBuilder: knitr , ggplot2 , scales, dplyr
 URL: https://nicolalove.github.io/shapeshiftr/
