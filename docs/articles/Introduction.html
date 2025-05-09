@@ -252,7 +252,7 @@ of population fragmentation. Let’s visualize the data to check:</p>
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">asym_split_sf</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu">coord_sf</span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">29.15</span>, <span class="fl">29.45</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">coord_sf</span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">29.15</span>, <span class="fl">29.45</span><span class="op">)</span>,crs <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span>,datum <span class="op">=</span> <span class="cn">NA</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/pretty_breaks.html" class="external-link">pretty_breaks</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_files/figure-html/visualize%20sf%20data-1.png" width="2187.5" style="display: block; margin: auto;"></p>
@@ -268,7 +268,7 @@ whereas the majority of the population moved slightly south.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Nicola Love, Sally Otto.</p>
+  <p>Developed by Nicola Love, Sarah Otto.</p>
 </div>
 
 <div class="pkgdown-footer-right">
