@@ -2,8 +2,8 @@ Package: shapeshiftr
 Title: Detecting Population Range Reconfiguration via Inter-individual Distances
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Nicola", "Love", email = "nicolalove@zoology.ubc.ca", role = c("aut", "cre")),
-    person("Sarah", "Otto", role = c("aut"))
+    person("Nicola", "Love", email = "nicolalove@zoology.ubc.ca", role = c("aut", "cre"), comment = c(GitHub = "nicolalove")),
+    person("Sarah", "Otto", role = c("aut"), comment = c(GitHub = "spotto"))
     )
 Description: A collection of tools to analyze shifts in the spatial cohesion of a group or population using inter-individual distances. Functions `cvpop`, `cvind`, and `cvratio` quantify variation in inter-individual distances and require only a matrix, two coordinate vectors, or a data frame with Cartesian coordinates (x and y as separate columns). The `iidist` function calculates inter-individual distances from an sf (simple features) object, producing output suitable for downstream analysis using `cvmetrics_sf`. 
 License: MIT + file LICENSE
