@@ -6,11 +6,11 @@
 \title{Spatial dataframe to showcase asymmetrical fragmentation}
 \format{
 A dataframe with 100 rows and 4 columns.
-describe{
-item{year}{A column containing the year animals were sampled}
-item{random}{A column containing data but not relevant to these functions}
-item{id}{The name of the animal sampled}
-item(geometry){An \code{sf} geometry column storing spatial point coordinates for each sampled individual.}
+\describe{
+\item{year}{A column containing the year animals were sampled}
+\item{random}{A column containing data but not relevant to these functions}
+\item{id}{The name of the animal sampled}
+\item{geometry}{An \code{sf} geometry column storing spatial point coordinates for each sampled individual.}
 }
 }
 \source{

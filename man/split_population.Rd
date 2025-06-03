@@ -6,12 +6,12 @@
 \title{Data to showcase a population fragmenting into two subpopulations}
 \format{
 A data frame with 100 rows and 5 columns.
-describe{
-item{x}{Longitude of animal}
-item{y}{Latitude of animal}
-item{year}{Year animal was sampled}
-item{random}{A column containing data but not relevant to these functions}
-item{id}{The name of the animal sampled}
+\describe{
+\item{x}{Longitude of animal}
+\item{y}{Latitude of animal}
+\item{year}{Year animal was sampled}
+\item{random}{A column containing data but not relevant to these functions}
+\item{id}{The name of the animal sampled}
 }
 }
 \source{

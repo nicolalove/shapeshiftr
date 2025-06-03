@@ -14,7 +14,8 @@
 #' @importFrom magrittr %>%
 #' @import tidyr
 #' @importFrom purrr map
-
+#' @importFrom stats dist sd
+#' @importFrom utils data
 
 iidist <- function(dataset, nest_by, idcol){
   if (is.null(nest_by) || length(nest_by) == 0) {

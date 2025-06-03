@@ -12,7 +12,7 @@ test_that("cvmetrics returns a dataframe with the correct number of columns and 
   )
 
   # Assuming iidist() calculates inter-individual distances for a given time
-  result <- cvmetrics(df, distcol = "dist", idcol = "id1", grp_by = c("yday", "year"), log10 = F)
+  result <- cvmetrics_sf(df, distcol = "dist", idcol = "id1", grp_by = c("yday", "year"), log10 = F)
   grp_by = c("yday", "year")
   expect_s3_class(result, "tbl_df")
   expect_length(result, length(grp_by) + 3)
