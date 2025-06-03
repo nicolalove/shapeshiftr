@@ -7,3 +7,4 @@
 ^\.github$
 ^_pkgdown\.yml$
 ^pkgdown\.yml$
+^pkgdown$
