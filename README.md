@@ -24,7 +24,7 @@ And provides 2 functions for dataframes with an `sf` geometry column:
     patch)
 
 For a detailed introduction, please see `vignette("shapeshiftr")` or
-[shapeshiftr](articles/shapeshiftr.html).
+[shapeshiftr](https://nicolalove.github.io/shapeshiftr/articles/Introduction.html).
 
 ## Installation
 

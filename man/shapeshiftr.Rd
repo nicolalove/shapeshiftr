@@ -24,11 +24,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Nicola Love \email{nicolalove@zoology.ubc.ca} (GitHub = nicolalove)
+\strong{Maintainer}: Nicola Love \email{nicolalove@zoology.ubc.ca}
 
 Authors:
 \itemize{
-  \item Sarah Otto (GitHub = spotto)
+  \item Sarah Otto
 }
 
 }

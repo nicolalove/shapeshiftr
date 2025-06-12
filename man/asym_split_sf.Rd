@@ -14,7 +14,7 @@ A dataframe with 100 rows and 4 columns.
 }
 }
 \source{
-Created by Nicola Love, by creating 3 bivariate normal distributions generated with \code{MASS::mvrnorm()}, then converted to an \code{sf} dataframe with unprojected geographic coordinates (EPSG:4326). All three distributions had a standard deviation of √.001. In year 1, the distribution was centered at c(29.285,-22.373) in the Venetia-Limpopo Nature Reserve. The two distributions in year 2 were centered at the northern and southern ends of the reserve: c(29.285,-22.15) and c(29.285,-22.45), respectively.
+Created by Nicola Love, by creating 3 bivariate normal distributions generated with \code{MASS::mvrnorm()}, then converted to an \code{sf} dataframe with unprojected geographic coordinates (EPSG:4326). All three distributions had a standard deviation of \eqn{sqrt{.001}}. In year 1, the distribution was centered at c(29.285,-22.373) in the Venetia-Limpopo Nature Reserve. The two distributions in year 2 were centered at the northern and southern ends of the reserve: c(29.285,-22.15) and c(29.285,-22.45), respectively.
 }
 \usage{
 asym_split_sf

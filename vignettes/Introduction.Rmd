@@ -82,10 +82,6 @@ knitr::include_graphics("../man/figures/cvsims.png")
 
 ```
 
-For the full description of the method and its application, see: Love &
-Otto (2025). *Spatial Signatures of Population Cohesion*. Methods in
-Ecology and Evolution. <https://doi.org/>
-
 ## CV functions
 
 This package has two streams of functions depending on the type of
