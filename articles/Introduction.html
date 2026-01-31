@@ -89,7 +89,7 @@ competition). When population size or habitat conditions change, that
 balance can shift—leading to changes in how the group is spaced out, and
 even in the shape of their overall range (like shrinking, stretching, or
 splitting apart).</p>
-<p><img src="../reference/figures/iidicons.png" width="30%" style="display: block; margin: auto;"></p>
+<p><img src="../reference/figures/iidicons.png" class="r-plt" alt="" width="30%" style="display: block; margin: auto;"></p>
 <p>Determining the range and spatial density of individuals fully
 requires extensive sampling. Our method adds to the existing toolkit of
 spatial analysis by offering summary statistics that require less
@@ -101,7 +101,7 @@ if density changes without changing the spatial distribution, or if the
 range changes symmetrically as the population shifts. However, changes
 in range shape and/or splitting into subpopulations alter these two CV
 measures, and their ratio, in distinct ways:</p>
-<p><img src="../reference/figures/cvsims.png" width="70%" style="display: block; margin: auto;"></p>
+<p><img src="../reference/figures/cvsims.png" class="r-plt" alt="" width="70%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="cv-functions">CV functions<a class="anchor" aria-label="anchor" href="#cv-functions"></a>
@@ -169,7 +169,7 @@ of population fragmentation. Let’s visualize the data to check:</p>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Introduction_files/figure-html/visualize%20non-sf%20data-1.png" width="2187.5" style="display: block; margin: auto;"></p>
+<p><img src="Introduction_files/figure-html/visualize%20non-sf%20data-1.png" class="r-plt" alt="" width="2187.5" style="display: block; margin: auto;"></p>
 <p>We can see that the population has split from into two subpopulations
 from year 1 to year 2.</p>
 </div>
@@ -251,7 +251,7 @@ of population fragmentation. Let’s visualize the data to check:</p>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">29.15</span>, <span class="fl">29.45</span><span class="op">)</span>,crs <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span>,datum <span class="op">=</span> <span class="cn">NA</span>, expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/pretty_breaks.html" class="external-link">pretty_breaks</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Introduction_files/figure-html/visualize%20sf%20data-1.png" width="2187.5" style="display: block; margin: auto;"></p>
+<p><img src="Introduction_files/figure-html/visualize%20sf%20data-1.png" class="r-plt" alt="" width="2187.5" style="display: block; margin: auto;"></p>
 <p>We can see that the population has asymmetrically split from year one
 to year two, where a small proportion of the population has moved north,
 whereas the majority of the population moved slightly south.</p>
@@ -268,7 +268,7 @@ whereas the majority of the population moved slightly south.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
