@@ -854,7 +854,7 @@ run_iteration2 <- function(iteration, sample_sizes, n_timepoints, sample_covaria
 }
 
 num_cores <- 3  # Use fewer cores on laptop, gets laggy
-samplesize_results <- mclapply(1:10, run_iteration2,
+samplesize_results <- mclapply(1:1000, run_iteration2,
                                sample_sizes = sample_sizes,
                                n_timepoints = n_timepoints,
                                sample_covariance_matrix = sample_covariance_matrix,
