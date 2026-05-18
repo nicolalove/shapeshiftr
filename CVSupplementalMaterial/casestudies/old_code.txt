@@ -1,0 +1,233 @@
+# old code from jackdaws R script, archived here for posterity
+# need to run with jackdaws.R
+
+#----OLD CODE: subsample, insets----
+# subsample 33% for 100 iterations
+n_iter <- 100
+flock1 <- transit %>% filter(flock == "transit_flock_01")
+cv_boot <- map_dfr(1:n_iter, function(iter){
+  flock1 %>%
+    group_by(flock, t) %>%
+    slice_sample(prop = .33) %>%
+    filter(n() >= 3) %>%
+    summarise(
+      n_birds = n(),
+      cv_pop  = cvpop(across(c(x, y))),
+      cv_ind  = cvind(across(c(x, y))),
+      ratio   = cvratio(across(c(x, y))),
+      .groups = "drop"
+    ) %>%
+    mutate(iter = iter)
+}, .progress = T)
+
+t_mins <- transit %>%
+  group_by(flock) %>%
+  summarise(t_min = min(t), .groups = "drop")
+
+cv_boot_lines <- cv_boot %>%
+  left_join(t_mins, by = "flock") %>%
+  mutate(t_rel = t - t_min) %>%          # ← just t_rel, no t_bin
+  ungroup() %>%
+  pivot_longer(c(cv_pop, cv_ind, ratio), names_to = "Type", values_to = "CV")
+
+
+mathematicapal <- c( "#8888d4","#229e0c", "black")
+
+flocks <- c(
+  transit_flock_01 = "Sampled Flock 1",
+  transit_flock_03  = "Flock 3"
+)
+
+transitplot <- ggplot() +
+  # Cloud: all 100 iterations, thin + transparent
+  geom_line(data = cv_boot_lines,
+            aes(t_rel, CV, colour = Type, group = interaction(Type, iter)),
+            alpha = 0.03, linewidth = 0.2,show.legend = FALSE) +
+  # Median line: bold
+  geom_line(data = cv_boot_median,
+            aes(t_bin, med, colour = Type),
+            linewidth = 1.1) +
+  scale_color_manual(values = mathematicapal,
+                     labels = c(bquote(CV[italic(indiv)]), bquote(CV[italic(pop)]), "Ratio")) +
+  facet_wrap(~flock,
+             labeller = as_labeller(c(transit_flock_01 = "Sampled Flock 1"))) +
+  labs(x = "Time (s)", y="CV", color = "")+
+  theme_bw()+
+  theme(legend.text = element_text(size = 12),
+        strip.text = element_text(size = 13))+
+  xlim(NA, 12.5)
+transitplot
+
+# within vs. b/w flcok variation
+
+# per-flock temporal variability of each metric
+within_flock_var <- bind_rows(
+  cv_transit_all %>% mutate(context = "transit"),
+  cv_mob_all     %>% mutate(context = "mobbing")
+) %>%
+  pivot_longer(c(cv_ind, cv_pop, ratio), names_to = "Type", values_to = "CV") %>%
+  group_by(context, flock, Type) %>%
+  summarise(temporal_cv = sd(CV) / mean(CV), .groups = "drop")
+
+# then compare distributions of these per-flock values
+within_flock_var %>%
+  group_by(context, Type) %>%
+  summarise(median = median(temporal_cv), iqr = IQR(temporal_cv))
+
+# and a Wilcoxon test on each metric
+within_flock_var %>%
+  group_by(Type) %>%
+  summarise(p = wilcox.test(temporal_cv ~ context)$p.value)
+
+# all cv transit, non-binned and peak times, etc
+{
+  ggplot(cv_transit_all %>% filter(flock %in% c("transit_flock_01", "transit_flock_03"))) +
+    geom_line(aes(t, cv_ind), col = "plum") +
+    geom_line(aes(t, cv_pop), col = "darkgreen") +
+    geom_line(aes(t, ratio), col = "black") +
+    facet_wrap(~flock) +
+    theme_bw()
+
+
+  # just look at frames with peak number of birds
+  peak_times <- transit %>%
+    group_by(flock, t) %>%
+    summarise(n_birds = n(), .groups = "drop") %>%
+    group_by(flock) %>%
+    slice_max(n_birds, n = 1, with_ties = F) %>%       # row with highest n_birds per flock
+    dplyr::select(flock, t_peak = t)
+
+  transit_peak <- transit %>%
+    left_join(peak_times, by = "flock") %>%
+    filter(t >= t_peak - .5, t <= t_peak + .5)
+
+  transit_peak %>%
+    group_by(flock, t) %>%
+    summarise(n = n(), .groups = "drop") %>%
+    group_by(flock) %>%
+    summarise(n_frames = n_distinct(t),
+              min_birds = min(n),
+              max_birds = max(n))
+
+
+  cv_transit <- transit_peak %>% filter(flock %in% c("transit_flock_01","transit_flock_03","transit_flock_06"))%>%
+    group_by(flock, t) %>%
+    filter(n() >= 3) %>%
+    summarise(
+      n_birds = n(),
+      cv_pop  = cvpop(across(c(x, y))),
+      cv_ind  = cvind(across(c(x, y))),
+      ratio   = cvratio(across(c(x, y))),
+      .groups = "drop"
+    )
+
+  cv_transit %>% group_by(flock) %>% summarize(meanpop = mean(cv_pop),
+                                               meanind = mean(cv_ind),
+                                               meanratio = mean(ratio))
+
+
+  ggplot(cv_transit)+
+    geom_line(aes(t, cv_ind), col = "plum") +
+    geom_line(aes(t, cv_pop), col = "darkgreen") +
+    geom_line(aes(t, ratio)) +
+    facet_wrap(~flock) +
+    theme_bw()}
+
+#---- MAKE TRANSIT INSETS
+
+#  1. Make time relative per flock
+transit <- transit %>%
+  group_by(flock) %>%
+  mutate(t_rel = t - min(t)) %>%
+  ungroup()
+
+# 2. Snapshot function
+# Returns a ggplot of bird positions at the single frame nearest to t_target
+snapshot <- function(data, flock_name, t_target, point_size = 2.5,  show_flock_label = TRUE) {
+
+  flock_data <- data %>% filter(flock == flock_name)
+
+  # Find the timestamp closest to t_target
+  nearest_t <- flock_data %>%
+    distinct(t_rel) %>%
+    slice_min(abs(t_rel - t_target), n = 1) %>%
+    pull(t_rel)
+
+  frame <- flock_data %>% filter(t_rel == nearest_t)
+
+  # Compute local density (birds within 2m) for colouring — matching caribou style
+  coords  <- frame %>% select(x, y) %>% as.matrix()
+  D       <- as.matrix(dist(coords))
+  diag(D) <- Inf
+  frame$density <- rowSums(D < 2)   # count neighbours within 2m
+
+  # Fixed axis limits: use overall flock extent so all panels are comparable
+  all_frames <- flock_data
+  xlim <- range(all_frames$x)
+  ylim <- range(all_frames$y)
+  pad  <- max(diff(xlim), diff(ylim)) * 0.1
+  lim  <- c(min(xlim[1], ylim[1]) - pad, max(xlim[2], ylim[2]) + pad)
+
+  ggplot(frame, aes(x, y, colour = density)) +
+    geom_point(size = point_size, alpha = 0.85) +
+    scale_colour_viridis_c(option = "viridis", direction = -1,
+                           guide = "none") +
+    coord_fixed(xlim = xlim + c(-pad, pad),
+                ylim = ylim + c(-pad, pad)) +
+    theme_void() +
+    labs(title = paste0("t = ", t_target, "s"),
+         subtitle = paste0("n = ", nrow(frame), " birds"), y = paste0(flock_name)) +
+    theme(
+      plot.title    = element_text(size = 13,  hjust = 0.5, face = "bold"),
+      plot.subtitle = element_text(size = 12,  hjust = 0.5),
+      panel.border  = element_rect(colour = "grey80", fill = NA, linewidth = 0.4),
+      plot.margin   = margin(4, 4, 4, 4),
+      # Only show y label when requested — theme_void strips it so add it back
+      axis.title.y  = if (show_flock_label)
+        element_text(size = 10, angle = 90, hjust = 0.5,
+                     margin = margin(r = 6))
+      else element_blank()
+    )
+}
+
+# 3. Build snapshot rows for each flock
+time_points <- c(5, 8, 10, 12.5, 15)
+
+snaps_f01 <- map(time_points, ~snapshot(transit, "transit_flock_01", .x)) %>%
+  wrap_plots(nrow = 1) +
+  plot_annotation(title = "Transit flock 01",
+                  theme = theme(plot.title = element_text(size = 11, face = "bold")))
+
+snaps_f03 <- map(time_points, ~snapshot(transit, "transit_flock_03", .x)) %>%
+  wrap_plots(nrow = 1) +
+  plot_annotation(title = "Transit flock 03",
+                  theme = theme(plot.title = element_text(size = 11, face = "bold")))
+
+tplots <- (
+  ((transitplot  + theme(plot.margin = margin(t = 5, r = 5, b = 0, l = 5), axis.title = element_text(size =13), axis.text = element_text(size = 12))) +
+     (transitplot3 + theme(plot.margin = margin(t = 5, r = 5, b = 0, l = 5), axis.title = element_text(size =13), axis.text = element_text(size = 12)))
+  ) + plot_layout(guides = "collect")) /
+  (snaps_f01 + theme(plot.margin = margin(t = 0, r = 5, b = 5, l = 5))) +
+  plot_layout(
+    heights = c(1.2, .8)
+  )
+tplots
+time_points <- c(5, 8, 10, 12.5, 15)
+
+flock_ids <- transit %>% distinct(flock) %>% pull(flock)
+
+snaps_all <- set_names(flock_ids) %>%
+  map(function(flock_name) {
+    map(seq_along(time_points), ~snapshot(
+      transit, flock_name, time_points[[.x]],
+      show_flock_label = (.x == 1)     # ← TRUE only for first panel
+    )) %>%
+      wrap_plots(nrow = 1) &
+      theme(aspect.ratio = 1)
+  })
+
+# Access individual flock snap rows as:
+# snaps_all[["transit_flock_01"]]
+
+wrap_plots(snaps_all, ncol = 1)
+
