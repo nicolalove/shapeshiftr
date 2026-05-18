@@ -65,6 +65,7 @@ the individual sampled (“id”), and for illustrative purposes, a column
 containing data but not relevant to these functions (“random”).
 
 ``` r
+
 library(shapeshiftr)
 head(split_population)
 ```
@@ -81,6 +82,7 @@ The data is spread across multiple years, we will use our CV functions
 in a pipe where the dataframe is grouped by year.
 
 ``` r
+
 sp <- split_population %>% group_by(year) %>% 
                       summarise(pop = cvpop(across(c(x,y))), 
                                 ind = cvind(across(c(x,y))), 
@@ -99,6 +101,7 @@ individual-level CV and the ratio has decreased, which is indicative of
 population fragmentation. Let’s visualize the data to check:
 
 ``` r
+
 ggplot(split_population, aes(x,y)) +
   geom_point(aes(color = as.factor(year))) +
   theme_bw() +
@@ -140,6 +143,7 @@ identification of the individual sampled (“id”), and the location
 coordinates stored in a geometry column.
 
 ``` r
+
 head(asym_split_sf)
 ```
 
@@ -163,6 +167,7 @@ as input for
 [`cvmetrics_sf()`](https://nicolalove.github.io/shapeshiftr/reference/cvmetrics_sf.md).
 
 ``` r
+
 distances <- iidist(asym_split_sf, nest_by = "year", idcol = "id")
 head(distances)
 ```
@@ -178,12 +183,14 @@ head(distances)
     ## 6     1 7     1      6041.
 
 ``` r
+
 cvs <- cvmetrics_sf(distances, distcol = "iidist", idcol = "ID1", grp_by = "year")
 ```
 
     ## Joining with `by = join_by(year)`
 
 ``` r
+
 head(cvs)
 ```
 
@@ -198,6 +205,7 @@ individual-level CV and the ratio has decreased, which is indicative of
 population fragmentation. Let’s visualize the data to check:
 
 ``` r
+
 ggplot(asym_split_sf) +
   geom_sf(aes(color = as.factor(year))) +
   labs(color = "year")+

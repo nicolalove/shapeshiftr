@@ -38,6 +38,7 @@ ways.
 *Recommended:*
 
 ``` r
+
 install.packages("pak")
 pak::pak("nicolalove/shapeshiftr")
 ```
@@ -45,6 +46,7 @@ pak::pak("nicolalove/shapeshiftr")
 *Or:*
 
 ``` r
+
 install.packages("devtools")
 devtools::install_github("nicolalove/shapeshiftr")
 ```
