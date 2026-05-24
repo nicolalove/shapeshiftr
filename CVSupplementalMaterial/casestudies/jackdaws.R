@@ -153,6 +153,10 @@ mobplot_lines <- ggplot(
 mobplot_lines
 
 #---- 2D Median CV Across Time ----
+cv_transit_all <- readRDS("CVSupplementalMaterial/casestudies/cv_transit_all2D.rds")
+cv_mob_all <- readRDS("CVSupplementalMaterial/casestudies/cv_mob_all2D.rds")
+
+
 cv_transit_global <- cv_transit_all %>% group_by(flock) %>% summarise(
   n_birds = n(),
   med_cvpop = median(cv_pop),
@@ -174,13 +178,10 @@ cv_mob_global <- cv_mob_all %>% group_by(flock) %>% summarise(
   # mean_ratio = mean(ratio),
   .groups = "drop"
 )
-
-#saveRDS(cv_transit_all, "CVSupplementalMaterial/casestudies/cv_transit_all2D.rds")
-#saveRDS(cv_mob_all, "CVSupplementalMaterial/casestudies/cv_mob_all2D.rds")
-
-
 cv_transit_global$Behavior <- "Transitting"
 cv_mob_global$Behavior <- "Mobbing"
+#saveRDS(cv_transit_all, "CVSupplementalMaterial/casestudies/cv_transit_all2D.rds")
+#saveRDS(cv_mob_all, "CVSupplementalMaterial/casestudies/cv_mob_all2D.rds")
 
 cv_global_summary <- rbind(cv_transit_global, cv_mob_global)
 cv_global_long <- cv_global_summary %>%
@@ -216,9 +217,9 @@ y_pos <- cv_global_long %>%
   summarise(y = max(CV, na.rm = TRUE) * 1.06, .groups = "drop") %>%
   pull(y)
 
-
+mathematicapal <- c("#8888d4","#229e0c", "black")
 twod<- ggplot(cv_global_long,
-       aes(Metric, CV, colour = Behavior,
+       aes(Metric, CV, shape = Behavior, color = Metric,
            group = interaction(Metric, Behavior))) +
   geom_violin(position = position_dodge(width = 0.7),
                alpha = 0.5) +
@@ -226,16 +227,19 @@ twod<- ggplot(cv_global_long,
                                              dodge.width  = 0.7),
              size = 2) +
   geom_errorbar(data = cv_meds,
-                aes(x = Metric, ymin = (med_CV-se_CV), ymax=(med_CV+se_CV), group = Behavior),
+                aes(x = Metric, ymin = (med_CV-se_CV), ymax=(med_CV+se_CV),
+                    group = Behavior),
+                col = "black", alpha = .8,
                 width=.2,
-                position = position_dodge(width = 0.7), alpha = .8,
-                col = "black", inherit.aes = F)+
+                position = position_dodge(width = 0.7), inherit.aes = F)+
   # Mean overlay — same Metric values, dodges correctly
   geom_point(data = cv_meds,
              aes(y = med_CV),
-             position = position_dodge(width = 0.7), col = "black",
              alpha = .8,
-             shape = 18, size = 3) +   # diamond shape distinguishes from jitter
+             position = position_dodge(width = 0.7),
+             col = "black",
+             shape = 18,
+             size = 3, show.legend = F) +   # diamond shape distinguishes from jitter
   geom_signif(
     annotation = symnum(anno_df$p.adjusted,
                         cutpoints = c(0, 0.001, 0.01, 0.05, 1),
@@ -247,16 +251,18 @@ twod<- ggplot(cv_global_long,
     textsize = 5,
     col = "black"
   ) +
-  scale_color_manual(values = friendly_pal("contrast_three"))+
+  guides(color = "none")+
+  scale_color_manual(values = mathematicapal)+
   scale_x_discrete(labels = c(
     med_cvind = expression(CV[italic(indiv)]),
     med_cvpop = expression(CV[italic(pop)]),
     med_ratio = "Ratio"
   )) +
+  scale_shape_manual(values = c(1, 4))+
   theme_bw(base_size = 14) +
   theme(axis.text.x = element_text(size = 13,color = "black"))+
   labs(x = "", colour = "Behavior"
-       , subtitle = "2D Median CV per flock"
+       , subtitle = "2D Median CVs"
   )
 
 twod
@@ -283,6 +289,7 @@ cv_transit_3d <- transit %>%
     ratio = cv_ind / cv_pop,
     .groups = "drop"
   )
+cv_transit_3d <- readRDS("CVSupplementalMaterial/casestudies/cv_transit_3d.rds")
 
 #saveRDS(cv_transit_3d, "CVSupplementalMaterial/casestudies/cv_transit_3d.rds")
 
@@ -305,7 +312,7 @@ cv_mob_3d <- mob %>%
     .groups = "drop"
   )
 #saveRDS(cv_mob_3d, "CVSupplementalMaterial/casestudies/cv_mob_3d.rds")
-
+cv_mob_3d<- readRDS("CVSupplementalMaterial/casestudies/cv_mob_3d.rds")
 
 cv_transit_global3d <- cv_transit_3d %>% group_by(flock) %>% summarise(
   n_birds = n(),
@@ -366,11 +373,12 @@ y_pos <- cv_global_long3d %>%
   pull(y)
 
 threed <- ggplot(cv_global_long3d,
-       aes(Metric, CV, colour = Behavior,
+       aes(Metric, CV, colour = Metric, shape = Behavior,
            group = interaction(Metric, Behavior))) +
   geom_violin(position = position_dodge(width = 0.7),
                alpha = 0.5) +
-  geom_point(position = position_jitterdodge(jitter.width = 0.15,
+  geom_point(
+             position = position_jitterdodge(jitter.width = 0.15,
                                              dodge.width  = 0.7),
              size = 2) +
   geom_errorbar(data = cv_meds3d,
@@ -393,7 +401,9 @@ threed <- ggplot(cv_global_long3d,
     textsize = 5,
     col = "black"
   ) +
-  scale_color_manual(values = friendly_pal("contrast_three"))+
+  guides(color = "none")+
+  scale_color_manual(values = mathematicapal)+
+  scale_shape_manual(values = c(1, 4))+
   scale_x_discrete(labels = c(
     med_cvind = expression(CV[italic(indiv)]),
     med_cvpop = expression(CV[italic(pop)]),
@@ -402,9 +412,10 @@ threed <- ggplot(cv_global_long3d,
   theme_bw(base_size = 14) +
   theme(axis.text.x = element_text(size = 13, color = "black"))+
   labs(x = "", colour = "Behavior"
-      , subtitle = "3D Median CV per flock"
+      , subtitle = "3D Median CVs"
       )
 threed
+
 twod  <- twod  + theme(plot.tag = element_text(face = "bold"),
                        legend.position = "bottom")
 threed <- threed + theme(plot.tag = element_text(face = "bold"),
@@ -416,6 +427,4 @@ threed <- threed + theme(plot.tag = element_text(face = "bold"),
         scale_y_continuous(expand = expansion(mult = c(0.05, 0.12))))) +
   plot_layout(guides = "collect") +
   plot_annotation(theme = theme(legend.position = "bottom",
-  ), tag_levels = list(c("A", "B")))
-
-
+  ), tag_levels = list(c("(A)", "(B)")))
