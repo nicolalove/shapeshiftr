@@ -1,6 +1,6 @@
 # shapeshiftr
 
-## Overview
+## Overview of the shapeshiftr
 
 `shapeshiftr` calculates the inter-individual distances (IID) in a group
 or population, and compares population- vs individual-level variation in
