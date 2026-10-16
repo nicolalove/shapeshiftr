@@ -1,6 +1,6 @@
 # shapeshiftr <a href="https://nicolalove.github.io/shapeshiftr/"><img src="man/figures/logo.png" align="right" height="139" alt="shapeshiftr website" /></a>
 
-## Overview
+## Overview of the shapeshiftr
 
 `shapeshiftr` calculates the inter-individual distances (IID) in a group
 or population, and compares population- vs individual-level variation in
